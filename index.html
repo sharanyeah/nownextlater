@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-           
+            /* Modern Color Palette - Improved Readability */
             --color-background: #FAFAFA;
             --color-surface: #FFFFFF;
             --color-surface-secondary: rgba(255, 255, 255, 0.9);
             --color-surface-elevated: rgba(255, 255, 255, 0.95);
             --color-surface-glass: rgba(255, 255, 255, 0.85);
             
-          
+            /* Enhanced Primary Colors - Better Contrast */
             --color-primary: #FF6B35;
             --color-primary-light: #FF8A65;
             --color-primary-dark: #E8512F;
@@ -25,7 +25,7 @@
             --color-primary-border: rgba(255, 107, 53, 0.2);
             --color-primary-gradient: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
             
-           
+            /* Improved Text Hierarchy - Better Readability */
             --color-text-primary: #0D1117;
             --color-text-secondary: #21262D;
             --color-text-tertiary: #656D76;
@@ -33,13 +33,13 @@
             --color-text-muted: rgba(13, 17, 23, 0.6);
             --color-text-accent: #FF6B35;
             
-       
+            /* Refined Borders */
             --color-border: rgba(255, 107, 53, 0.12);
             --color-border-light: rgba(255, 107, 53, 0.08);
             --color-border-subtle: rgba(13, 17, 23, 0.08);
             --color-border-focus: var(--color-primary);
             
-           
+            /* Status Colors */
             --color-success: #28A745;
             --color-success-light: rgba(40, 167, 69, 0.1);
             --color-danger: #DC3545;
@@ -47,7 +47,7 @@
             --color-warning: #FFC107;
             --color-warning-light: rgba(255, 193, 7, 0.1);
             
-         
+            /* Enhanced Typography Scale */
             --font-family-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             --font-family-mono: 'Fira Code', 'SF Mono', 'Monaco', Consolas, monospace;
             
@@ -78,7 +78,8 @@
             --font-weight-semibold: 600;
             --font-weight-bold: 700;
             --font-weight-extrabold: 800;
-           
+            
+            /* Shadows */
             --shadow-sm: 0 1px 3px rgba(13, 17, 23, 0.08);
             --shadow-md: 0 4px 12px rgba(13, 17, 23, 0.1);
             --shadow-lg: 0 8px 24px rgba(13, 17, 23, 0.12);
@@ -765,7 +766,7 @@
 </head>
 <body>
     <div class="app-container">
-     
+        <!-- Header -->
         <header class="header">
             <h1 class="logo">Now / Next / Later</h1>
             <p class="tagline">Stop drowning in endless lists. Organize by time, not chaos.</p>
@@ -775,7 +776,7 @@
             </p>
         </header>
 
-        
+        <!-- Navigation -->
         <nav class="nav-container">
             <div class="nav-tabs">
                 <div class="nav-indicator now"></div>
@@ -785,9 +786,9 @@
             </div>
         </nav>
 
-        
+        <!-- Content -->
         <main class="content-container">
-           
+            <!-- Now View -->
             <div class="view active" id="now-view">
                 <div class="view-header">
                     <h2 class="view-title">What deserves your energy today?</h2>
@@ -802,7 +803,7 @@
                 <ul class="task-list" id="now-tasks"></ul>
             </div>
 
-       
+            <!-- Next View -->
             <div class="view" id="next-view">
                 <div class="view-header">
                     <h2 class="view-title">What's waiting in the queue?</h2>
@@ -817,7 +818,7 @@
                 <ul class="task-list" id="next-tasks"></ul>
             </div>
 
-           
+            <!-- Later View -->
             <div class="view" id="later-view">
                 <div class="view-header">
                     <h2 class="view-title">Ideas for someday</h2>
@@ -833,7 +834,7 @@
             </div>
         </main>
 
-      
+        <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
                 <p class="footer-tagline">Built for humans who think in time, not categories.</p>
@@ -849,7 +850,7 @@
     </div>
 
     <script>
-       class TodoApp {
+        class TodoApp {
             constructor() {
                 this.tasks = {
                     now: [],
@@ -887,6 +888,13 @@
                     });
                 });
 
+                // Auto-resize textarea and task interactions
+                document.addEventListener('input', (e) => {
+                    if (e.target.classList.contains('task-text')) {
+                        this.autoResizeTextarea(e.target);
+                    }
+                });
+
                 // Task interactions
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('task-checkbox')) {
@@ -900,7 +908,8 @@
 
                 // Task text editing
                 document.addEventListener('keypress', (e) => {
-                    if (e.target.classList.contains('task-text') && e.key === 'Enter') {
+                    if (e.target.classList.contains('task-text') && e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
                         e.target.blur();
                     }
                 });
@@ -971,7 +980,9 @@
             editTask(editBtn) {
                 const taskText = editBtn.closest('.task-item').querySelector('.task-text');
                 taskText.focus();
-                taskText.select();
+                // Move cursor to end
+                const length = taskText.value.length;
+                taskText.setSelectionRange(length, length);
             }
 
             updateTask(textInput) {
@@ -982,6 +993,14 @@
                 } else if (!textInput.value.trim()) {
                     // If empty, restore original text
                     textInput.value = task.taskObj.text;
+                    this.autoResizeTextarea(textInput);
+                }
+            }
+
+            autoResizeTextarea(textarea) {
+                if (textarea && textarea.tagName === 'TEXTAREA') {
+                    textarea.style.height = 'auto';
+                    textarea.style.height = Math.max(32, textarea.scrollHeight) + 'px';
                 }
             }
 
@@ -1012,13 +1031,20 @@
                 taskList.innerHTML = tasks.map(task => `
                     <li class="task-item" data-task-id="${task.id}">
                         <div class="task-checkbox ${task.completed ? 'completed' : ''}"></div>
-                        <input type="text" class="task-text ${task.completed ? 'completed' : ''}" value="${task.text}">
+                        <textarea class="task-text ${task.completed ? 'completed' : ''}" rows="1">${task.text}</textarea>
                         <div class="task-actions">
                             <button class="action-btn edit-btn">✏️</button>
                             <button class="action-btn delete-btn">🗑️</button>
                         </div>
                     </li>
                 `).join('');
+
+                // Auto-resize all textareas after rendering
+                setTimeout(() => {
+                    taskList.querySelectorAll('.task-text').forEach(textarea => {
+                        this.autoResizeTextarea(textarea);
+                    });
+                }, 50);
             }
 
             getEmptyIcon(bucket) {
@@ -1055,7 +1081,7 @@
             }
 
             saveTasks() {
-               
+                // Store in memory during session
                 this.persistedTasks = JSON.parse(JSON.stringify(this.tasks));
                 this.persistedCounter = this.taskIdCounter;
             }
@@ -1068,7 +1094,7 @@
             }
         }
 
-      
+        // Initialize app
         document.addEventListener('DOMContentLoaded', () => {
             new TodoApp();
         });
