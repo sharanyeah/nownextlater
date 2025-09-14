@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now / Next / Later</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+           
+            --color-background: #FAFAFA;
+            --color-surface: #FFFFFF;
+            --color-surface-secondary: rgba(255, 255, 255, 0.9);
+            --color-surface-elevated: rgba(255, 255, 255, 0.95);
+            --color-surface-glass: rgba(255, 255, 255, 0.85);
+            
+          
+            --color-primary: #FF6B35;
+            --color-primary-light: #FF8A65;
+            --color-primary-dark: #E8512F;
+            --color-primary-subtle: rgba(255, 107, 53, 0.08);
+            --color-primary-hover: rgba(255, 107, 53, 0.12);
+            --color-primary-border: rgba(255, 107, 53, 0.2);
+            --color-primary-gradient: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
+            
+           
+            --color-text-primary: #0D1117;
+            --color-text-secondary: #21262D;
+            --color-text-tertiary: #656D76;
+            --color-text-quaternary: #8B949E;
+            --color-text-muted: rgba(13, 17, 23, 0.6);
+            --color-text-accent: #FF6B35;
+            
+       
+            --color-border: rgba(255, 107, 53, 0.12);
+            --color-border-light: rgba(255, 107, 53, 0.08);
+            --color-border-subtle: rgba(13, 17, 23, 0.08);
+            --color-border-focus: var(--color-primary);
+            
+           
+            --color-success: #28A745;
+            --color-success-light: rgba(40, 167, 69, 0.1);
+            --color-danger: #DC3545;
+            --color-danger-light: rgba(220, 53, 69, 0.1);
+            --color-warning: #FFC107;
+            --color-warning-light: rgba(255, 193, 7, 0.1);
+            
+         
+            --font-family-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-family-mono: 'Fira Code', 'SF Mono', 'Monaco', Consolas, monospace;
+            
+            --font-size-xs: 0.75rem;      /* 12px */
+            --font-size-sm: 0.875rem;     /* 14px */
+            --font-size-base: 1rem;       /* 16px */
+            --font-size-lg: 1.125rem;     /* 18px */
+            --font-size-xl: 1.25rem;      /* 20px */
+            --font-size-2xl: 1.5rem;      /* 24px */
+            --font-size-3xl: 1.875rem;    /* 30px */
+            --font-size-4xl: 2.5rem;      /* 40px */
+            --font-size-5xl: 3.25rem;     /* 52px */
+            
+            --line-height-tight: 1.25;
+            --line-height-snug: 1.35;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.6;
+            --line-height-loose: 1.8;
+            
+            --letter-spacing-tight: -0.02em;
+            --letter-spacing-normal: 0;
+            --letter-spacing-wide: 0.02em;
+            --letter-spacing-wider: 0.05em;
+            
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-extrabold: 800;
+           
+            --shadow-sm: 0 1px 3px rgba(13, 17, 23, 0.08);
+            --shadow-md: 0 4px 12px rgba(13, 17, 23, 0.1);
+            --shadow-lg: 0 8px 24px rgba(13, 17, 23, 0.12);
+            --shadow-xl: 0 16px 40px rgba(13, 17, 23, 0.15);
+            --shadow-primary: 0 8px 24px rgba(255, 107, 53, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'liga' 1, 'kern' 1;
+        }
+
+        .app-container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 120px 0 80px;
+            border-bottom: 1px solid var(--color-border-subtle);
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            font-size: var(--font-size-5xl);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--color-text-primary);
+            margin-bottom: 20px;
+            letter-spacing: var(--letter-spacing-tight);
+            line-height: var(--line-height-tight);
+            background: var(--color-primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 24px;
+            line-height: var(--line-height-snug);
+            letter-spacing: var(--letter-spacing-normal);
+        }
+
+        .philosophy {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-tertiary);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: var(--line-height-relaxed);
+            font-weight: var(--font-weight-normal);
+        }
+
+        /* Navigation */
+        .nav-container {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: var(--color-surface-glass);
+            border-radius: 20px;
+            padding: 6px;
+            position: relative;
+            backdrop-filter: blur(20px) saturate(1.2);
+            border: 1px solid var(--color-border-subtle);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 18px 28px;
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-tertiary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+            letter-spacing: var(--letter-spacing-normal);
+            font-family: var(--font-family-primary);
+        }
+
+        .nav-tab.active {
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .nav-indicator {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: calc(33.333% - 4px);
+            height: calc(100% - 12px);
+            background: var(--color-primary-gradient);
+            border-radius: 16px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .nav-indicator.next {
+            transform: translateX(100%);
+        }
+
+        .nav-indicator.later {
+            transform: translateX(200%);
+        }
+
+        /* Content Area */
+        .content-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 400px;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .view.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+            position: relative;
+        }
+
+        .view-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .view-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: 20px;
+            letter-spacing: var(--letter-spacing-tight);
+            line-height: var(--line-height-tight);
+        }
+
+        .view-description {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: var(--line-height-relaxed);
+            font-weight: var(--font-weight-normal);
+        }
+
+        /* Task Input */
+        .task-input-container {
+            margin-bottom: 64px;
+        }
+
+        .task-input {
+            width: 100%;
+            padding: 24px 28px;
+            font-size: var(--font-size-lg);
+            border: 2px solid var(--color-border-subtle);
+            border-radius: 20px;
+            background: var(--color-surface);
+            color: var(--color-text-primary);
+            font-family: var(--font-family-primary);
+            font-weight: var(--font-weight-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            line-height: var(--line-height-normal);
+            box-shadow: 0 4px 16px rgba(13, 17, 23, 0.08), 0 1px 4px rgba(13, 17, 23, 0.04);
+        }
+
+        .task-input:focus {
+            outline: none;
+            border-color: var(--color-border-focus);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.12), 0 8px 32px rgba(13, 17, 23, 0.12), 0 2px 8px rgba(13, 17, 23, 0.08);
+            background: var(--color-surface);
+            transform: translateY(-2px);
+        }
+
+        .task-input::placeholder {
+            color: var(--color-text-quaternary);
+            font-weight: var(--font-weight-normal);
+        }
+
+        /* Task List */
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            background: var(--color-surface-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .task-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: var(--color-surface);
+            border-color: var(--color-border);
+        }
+
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-primary-border);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            position: relative;
+            margin-top: 2px;
+        }
+
+        .task-checkbox:hover {
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+            background: var(--color-primary-subtle);
+        }
+
+        .task-checkbox.completed {
+            background: var(--color-primary-gradient);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .task-checkbox.completed::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: var(--font-weight-bold);
+            position: absolute;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: var(--font-size-lg);
+            color: var(--color-text-primary);
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--font-family-primary);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-relaxed);
+            transition: all 0.25s ease;
+            padding: 10px 0;
+            resize: none;
+            overflow: hidden;
+            min-height: 32px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+            color: var(--color-text-muted);
+            font-weight: var(--font-weight-normal);
+        }
+
+        .task-text:focus {
+            background: var(--color-primary-subtle);
+            border-radius: 12px;
+            padding: 10px 16px;
+            color: var(--color-text-primary);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 8px;
+        }
+
+        .task-item:hover .task-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .edit-btn {
+            background: var(--color-primary-subtle);
+            color: var(--color-primary);
+        }
+
+        .edit-btn:hover {
+            background: var(--color-primary-hover);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .delete-btn {
+            background: var(--color-danger-light);
+            color: var(--color-danger);
+        }
+
+        .delete-btn:hover {
+            background: rgba(220, 53, 69, 0.15);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 140px 20px;
+            color: var(--color-text-tertiary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 28px;
+            opacity: 0.6;
+            filter: grayscale(0.2);
+        }
+
+        .empty-text {
+            font-size: var(--font-size-xl);
+            margin-bottom: 16px;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-secondary);
+        }
+
+        .empty-hint {
+            font-size: var(--font-size-base);
+            opacity: 0.8;
+            color: var(--color-text-tertiary);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 160px;
+            padding: 120px 0 80px;
+            text-align: center;
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .footer-content {
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        .footer-tagline {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+            font-weight: var(--font-weight-semibold);
+            line-height: var(--line-height-snug);
+        }
+
+        .footer-description {
+            font-size: var(--font-size-base);
+            color: var(--color-text-tertiary);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 28px;
+            font-weight: var(--font-weight-normal);
+        }
+
+        .footer-tech {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-quaternary);
+            font-family: var(--font-family-mono);
+            font-weight: var(--font-weight-medium);
+            letter-spacing: var(--letter-spacing-wide);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+        }
+
+        .task-item.removing {
+            animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app-container {
+                max-width: 1000px;
+                padding: 0 40px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                max-width: 900px;
+                padding: 0 32px;
+            }
+
+            .header {
+                padding: 100px 0 60px;
+                margin-bottom: 60px;
+            }
+
+            .logo {
+                font-size: var(--font-size-4xl);
+            }
+
+            .nav-container {
+                margin-bottom: 60px;
+            }
+
+            .view-header {
+                margin-bottom: 60px;
+            }
+
+            .view-title {
+                font-size: var(--font-size-3xl);
+            }
+
+            .footer {
+                margin-top: 120px;
+                padding: 100px 0 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 0 24px;
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 80px 0 40px;
+                margin-bottom: 40px;
+            }
+
+            .logo {
+                font-size: var(--font-size-4xl);
+                margin-bottom: 16px;
+            }
+
+            .tagline {
+                font-size: var(--font-size-lg);
+                margin-bottom: 20px;
+            }
+
+            .philosophy {
+                font-size: var(--font-size-base);
+                max-width: 100%;
+            }
+
+            .nav-container {
+                margin-bottom: 40px;
+            }
+
+            .nav-tabs {
+                padding: 4px;
+            }
+
+            .nav-tab {
+                padding: 16px 24px;
+                font-size: var(--font-size-base);
+            }
+
+            .view-header {
+                margin-bottom: 40px;
+            }
+
+            .view-title {
+                font-size: var(--font-size-3xl);
+                margin-bottom: 16px;
+            }
+
+            .view-description {
+                font-size: var(--font-size-base);
+                max-width: 100%;
+            }
+
+            .task-input-container {
+                margin-bottom: 40px;
+            }
+
+            .task-input {
+                padding: 20px 24px;
+                font-size: var(--font-size-base);
+            }
+
+            .task-item {
+                padding: 20px 24px;
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .task-text {
+                font-size: var(--font-size-base);
+            }
+
+            .empty-state {
+                padding: 40px 12px;
+            }
+
+            .empty-icon {
+                font-size: 2.5rem;
+                margin-bottom: 16px;
+            }
+
+            .empty-text {
+                font-size: var(--font-size-base);
+                margin-bottom: 12px;
+            }
+
+            .empty-hint {
+                font-size: var(--font-size-xs);
+            }
+
+            .footer {
+                margin-top: 40px;
+                padding: 40px 0 32px;
+            }
+
+            .footer-tagline {
+                font-size: var(--font-size-sm);
+                margin-bottom: 16px;
+            }
+
+            .footer-description {
+                font-size: var(--font-size-xs);
+                margin-bottom: 20px;
+            }
+
+            .footer-tech {
+                font-size: var(--font-size-xs);
+            }
+
+            .content-container {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-container {
+                padding: 0 12px;
+            }
+
+            .header {
+                padding: 40px 0 20px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                font-size: var(--font-size-xl);
+            }
+
+            .nav-tab {
+                padding: 10px 12px;
+                font-size: var(--font-size-xs);
+            }
+
+            .view-title {
+                font-size: var(--font-size-lg);
+            }
+
+            .task-input {
+                padding: 14px 16px;
+            }
+
+            .task-item {
+                padding: 14px 16px;
+                gap: 10px;
+            }
+
+            .footer {
+                margin-top: 32px;
+                padding: 32px 0 24px;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1400px) {
+            .app-container {
+                max-width: 1100px;
+                padding: 0 48px;
+            }
+
+            .header {
+                padding: 140px 0 100px;
+                margin-bottom: 100px;
+            }
+
+            .logo {
+                font-size: var(--font-size-5xl);
+            }
+
+            .nav-container {
+                margin-bottom: 100px;
+            }
+
+            .view-header {
+                margin-bottom: 100px;
+            }
+
+            .task-input-container {
+                margin-bottom: 80px;
+            }
+
+            .footer {
+                margin-top: 200px;
+                padding: 140px 0 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+     
+        <header class="header">
+            <h1 class="logo">Now / Next / Later</h1>
+            <p class="tagline">Stop drowning in endless lists. Organize by time, not chaos.</p>
+            <p class="philosophy">
+                Three simple buckets. Infinite clarity. Focus on what matters now, 
+                queue what's next, and park everything else for later.
+            </p>
+        </header>
+
+        
+        <nav class="nav-container">
+            <div class="nav-tabs">
+                <div class="nav-indicator now"></div>
+                <button class="nav-tab active" data-view="now">Now</button>
+                <button class="nav-tab" data-view="next">Next</button>
+                <button class="nav-tab" data-view="later">Later</button>
+            </div>
+        </nav>
+
+        
+        <main class="content-container">
+           
+            <div class="view active" id="now-view">
+                <div class="view-header">
+                    <h2 class="view-title">What deserves your energy today?</h2>
+                    <p class="view-description">
+                        These are your immediate priorities. The tasks that matter most right now.
+                        Keep this list short and focused.
+                    </p>
+                </div>
+                <div class="task-input-container">
+                    <input type="text" class="task-input" placeholder="Add something that needs your attention now..." data-bucket="now">
+                </div>
+                <ul class="task-list" id="now-tasks"></ul>
+            </div>
+
+       
+            <div class="view" id="next-view">
+                <div class="view-header">
+                    <h2 class="view-title">What's waiting in the queue?</h2>
+                    <p class="view-description">
+                        Tasks that are coming up soon but don't need immediate attention.
+                        Your upcoming projects and commitments live here.
+                    </p>
+                </div>
+                <div class="task-input-container">
+                    <input type="text" class="task-input" placeholder="Add something for the near future..." data-bucket="next">
+                </div>
+                <ul class="task-list" id="next-tasks"></ul>
+            </div>
+
+           
+            <div class="view" id="later-view">
+                <div class="view-header">
+                    <h2 class="view-title">Ideas for someday</h2>
+                    <p class="view-description">
+                        Your parking lot of possibilities. Dreams, ideas, and tasks that don't have
+                        a timeline yet but you don't want to forget.
+                    </p>
+                </div>
+                <div class="task-input-container">
+                    <input type="text" class="task-input" placeholder="Capture an idea for later..." data-bucket="later">
+                </div>
+                <ul class="task-list" id="later-tasks"></ul>
+            </div>
+        </main>
+
+      
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-tagline">Built for humans who think in time, not categories.</p>
+                <p class="footer-description">
+                    This isn't just another to-do app. It's a philosophy: organize by urgency, 
+                    not by project. Your brain already thinks this way—now your tasks can too.
+                </p>
+                <p class="footer-tech">
+                    Runs entirely in your browser. Your tasks stay private, always.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+       class TodoApp {
+            constructor() {
+                this.tasks = {
+                    now: [],
+                    next: [],
+                    later: []
+                };
+                this.currentView = 'now';
+                this.editingTask = null;
+                this.taskIdCounter = 1;
+                
+                this.init();
+            }
+
+            init() {
+                this.loadTasks();
+                this.bindEvents();
+                this.render();
+            }
+
+            bindEvents() {
+                // Navigation
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        this.switchView(e.target.dataset.view);
+                    });
+                });
+
+                // Task input
+                document.querySelectorAll('.task-input').forEach(input => {
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' && e.target.value.trim()) {
+                            this.createTask(e.target.dataset.bucket, e.target.value.trim());
+                            e.target.value = '';
+                        }
+                    });
+                });
+
+                // Task interactions
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('task-checkbox')) {
+                        this.toggleTaskCompletion(e.target);
+                    } else if (e.target.classList.contains('delete-btn')) {
+                        this.deleteTask(e.target);
+                    } else if (e.target.classList.contains('edit-btn')) {
+                        this.editTask(e.target);
+                    }
+                });
+
+                // Task text editing
+                document.addEventListener('keypress', (e) => {
+                    if (e.target.classList.contains('task-text') && e.key === 'Enter') {
+                        e.target.blur();
+                    }
+                });
+
+                document.addEventListener('blur', (e) => {
+                    if (e.target.classList.contains('task-text')) {
+                        this.updateTask(e.target);
+                    }
+                });
+            }
+
+            switchView(viewName) {
+                // Update active nav tab
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+
+                // Update indicator position
+                const indicator = document.querySelector('.nav-indicator');
+                indicator.className = `nav-indicator ${viewName}`;
+
+                // Switch view content
+                document.querySelectorAll('.view').forEach(view => {
+                    view.classList.remove('active');
+                });
+                document.getElementById(`${viewName}-view`).classList.add('active');
+
+                this.currentView = viewName;
+            }
+
+            createTask(bucket, text) {
+                const task = {
+                    id: this.taskIdCounter++,
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.tasks[bucket].push(task);
+                this.saveTasks();
+                this.renderBucket(bucket);
+            }
+
+            toggleTaskCompletion(checkbox) {
+                const task = this.findTaskFromElement(checkbox);
+                if (task.taskObj) {
+                    task.taskObj.completed = !task.taskObj.completed;
+                    this.saveTasks();
+                    this.renderBucket(task.bucket);
+                }
+            }
+
+            deleteTask(deleteBtn) {
+                const task = this.findTaskFromElement(deleteBtn);
+                if (task.taskObj) {
+                    const taskItem = deleteBtn.closest('.task-item');
+                    taskItem.classList.add('removing');
+                    
+                    setTimeout(() => {
+                        this.tasks[task.bucket] = this.tasks[task.bucket].filter(t => t.id !== task.taskObj.id);
+                        this.saveTasks();
+                        this.renderBucket(task.bucket);
+                    }, 300);
+                }
+            }
+
+            editTask(editBtn) {
+                const taskText = editBtn.closest('.task-item').querySelector('.task-text');
+                taskText.focus();
+                taskText.select();
+            }
+
+            updateTask(textInput) {
+                const task = this.findTaskFromElement(textInput);
+                if (task.taskObj && textInput.value.trim()) {
+                    task.taskObj.text = textInput.value.trim();
+                    this.saveTasks();
+                } else if (!textInput.value.trim()) {
+                    // If empty, restore original text
+                    textInput.value = task.taskObj.text;
+                }
+            }
+
+            findTaskFromElement(element) {
+                const taskItem = element.closest('.task-item');
+                const taskId = parseInt(taskItem.dataset.taskId);
+                const bucket = taskItem.closest('.view').id.replace('-view', '');
+                
+                const taskObj = this.tasks[bucket].find(t => t.id === taskId);
+                return { taskObj, bucket };
+            }
+
+            renderBucket(bucket) {
+                const taskList = document.getElementById(`${bucket}-tasks`);
+                const tasks = this.tasks[bucket];
+
+                if (tasks.length === 0) {
+                    taskList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">${this.getEmptyIcon(bucket)}</div>
+                            <div class="empty-text">${this.getEmptyText(bucket)}</div>
+                            <div class="empty-hint">${this.getEmptyHint(bucket)}</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                taskList.innerHTML = tasks.map(task => `
+                    <li class="task-item" data-task-id="${task.id}">
+                        <div class="task-checkbox ${task.completed ? 'completed' : ''}"></div>
+                        <input type="text" class="task-text ${task.completed ? 'completed' : ''}" value="${task.text}">
+                        <div class="task-actions">
+                            <button class="action-btn edit-btn">✏️</button>
+                            <button class="action-btn delete-btn">🗑️</button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            getEmptyIcon(bucket) {
+                const icons = {
+                    now: '⚡',
+                    next: '⏳',
+                    later: '💭'
+                };
+                return icons[bucket];
+            }
+
+            getEmptyText(bucket) {
+                const texts = {
+                    now: 'Nothing urgent right now',
+                    next: 'Your queue is empty',
+                    later: 'No ideas parked here yet'
+                };
+                return texts[bucket];
+            }
+
+            getEmptyHint(bucket) {
+                const hints = {
+                    now: 'Focus on what needs immediate attention',
+                    next: 'Add tasks that are coming up soon',
+                    later: 'Capture ideas and future possibilities'
+                };
+                return hints[bucket];
+            }
+
+            render() {
+                Object.keys(this.tasks).forEach(bucket => {
+                    this.renderBucket(bucket);
+                });
+            }
+
+            saveTasks() {
+               
+                this.persistedTasks = JSON.parse(JSON.stringify(this.tasks));
+                this.persistedCounter = this.taskIdCounter;
+            }
+
+            loadTasks() {
+                if (this.persistedTasks) {
+                    this.tasks = JSON.parse(JSON.stringify(this.persistedTasks));
+                    this.taskIdCounter = this.persistedCounter || 1;
+                }
+            }
+        }
+
+      
+        document.addEventListener('DOMContentLoaded', () => {
+            new TodoApp();
+        });
+    </script>
+</body>
+</html>
